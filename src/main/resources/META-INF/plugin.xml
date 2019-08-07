@@ -1,10 +1,10 @@
 <idea-plugin>
-    <id>com.heytea.copy-constructor-generator</id>
-    <name>CopyConstructorGenerator</name>
+    <id>com.heytea.plugins.ccg</id>
+    <name>Copy Constructor Generator</name>
     <vendor email="danielwei@gmail.com" url="https://www.heytea.com">HeyTea</vendor>
 
     <description><![CDATA[
-    A tool to quick generate copy constructor.
+    A simple tool to quick generate copy constructor.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -19,8 +19,8 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="CopyConstructor.GenerateConstructorAction" class="com.heytea.plugin.ccg.action.GenerateCopyConstructorAction" text="Copy constructor"
-                description="The action generate bean properties constructor.">
+        <action id="CopyConstructor.GenerateConstructorAction" class="com.heytea.plugin.ccg.action.GenerateCopyConstructorAction" text="Copy Constructor"
+                description="The action generate bean properties copy constructor.">
             <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup1"/>
         </action>
     </actions>
