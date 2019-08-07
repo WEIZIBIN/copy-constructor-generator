@@ -19,6 +19,8 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version '2019.1.1'
+    type 'IU'
+    localPath '/Applications/IntelliJ IDEA.app'
 }
 patchPluginXml {
     changeNotes """
