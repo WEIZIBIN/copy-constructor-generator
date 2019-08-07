@@ -42,8 +42,7 @@ public class ConstructorUtil {
             PsiMethod[] constructors = psiClass.getConstructors();
             int len = constructors.length;
 
-            for (int i = 0; i < len; ++i) {
-                PsiMethod constructor = constructors[i];
+            for (PsiMethod constructor : constructors) {
                 if (isCopyConstructor(constructor)) {
                     return constructor;
                 }
