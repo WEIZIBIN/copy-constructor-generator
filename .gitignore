@@ -21,3 +21,28 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+*.java.hsp
+*.sonarj
+*.sw*
+.DS_Store
+bin
+build.sh
+integration-repo
+ivy-cache
+.gradle
+argfile*
+
+classes/
+/build
+target/
+
+# IDEA artifacts and output dirs
+*.iml
+*.ipr
+*.iws
+.idea
+out
+test-output
+atlassian-ide-plugin.xml
+.gradletasknamecache
