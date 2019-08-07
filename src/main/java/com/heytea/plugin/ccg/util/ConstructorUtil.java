@@ -78,7 +78,6 @@ public class ConstructorUtil {
     public static List<PsiField> getAllCopyableFields(PsiClass psiClass) {
         List<PsiField> copyableFields = new ArrayList<>();
         PsiField[] fields = psiClass.getFields();
-        int len = fields.length;
 
         for (PsiField field : fields) {
             if (isCopyableField(field)) {

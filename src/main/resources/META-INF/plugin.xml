@@ -1,10 +1,11 @@
 <idea-plugin>
-    <id>com.heytea.plugins.ccg</id>
+    <id>com.heytea.plugin.ccg</id>
     <name>Copy Constructor Generator</name>
     <vendor email="danielweiup@gmail.com" url="https://www.heytea.com">HeyTea</vendor>
 
     <description><![CDATA[
-    A simple tool to quick generate copy constructor.
+    Adds an option to generate a copy constructor to the generate menu.
+    The action will generate a copy constructor taking an instance of the same class and copying over every field. If there is a copy constructor available in the superclass it will be called as well.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
