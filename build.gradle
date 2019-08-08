@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.heytea.plugin'
-version '1.0.0-SNAPSHOT'
+version '1.0.0'
 
 sourceCompatibility = 1.8
 
@@ -18,11 +18,19 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2019.1.1'
+    version 'IC-2019.1.1'
 }
+
+// above 2019.2
+//intellij {
+//    plugins 'java'
+//    version 'IU-2019.2'
+//    localPath '/Applications/IntelliJ IDEA.app'
+//}
 
 patchPluginXml {
     changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+      <ul>
+        <li>v1.0.0 add Generator Copy Constructor action</li>
+      </ul>"""
 }
