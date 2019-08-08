@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.heytea.plugin.ccg</id>
     <name>Copy Constructor Generator</name>
-    <vendor email="danielweiup@gmail.com" url="https://www.heytea.com">HeyTea</vendor>
+    <vendor email="danielweiup@gmail.com" url="https://www.heytea.com">HEYTEA</vendor>
 
     <description><![CDATA[
     Adds an option to generate a copy constructor to the generate menu.
