@@ -18,17 +18,14 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version 'IC-2019.1.1'
+    plugins 'java'
+    version 'IU-2019.2'
+    localPath '/Applications/IntelliJ IDEA.app'
 }
 
-// above 2019.2
-//intellij {
-//    plugins 'java'
-//    version 'IU-2019.2'
-//    localPath '/Applications/IntelliJ IDEA.app'
-//}
-
 patchPluginXml {
+    sinceBuild '123.72'
+    untilBuild ''
     changeNotes """
       <ul>
         <li>v1.0.0 add Generator Copy Constructor action</li>

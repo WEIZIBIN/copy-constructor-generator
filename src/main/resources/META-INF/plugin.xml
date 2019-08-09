@@ -4,9 +4,12 @@
     <vendor email="danielweiup@gmail.com" url="https://www.heytea.com">HEYTEA</vendor>
 
     <description><![CDATA[
-    Adds an option to generate a copy constructor to the generate menu.
-    The action will generate a copy constructor taking an instance of the same class and copying over every field. If there is a copy constructor available in the superclass it will be called as well.
+        <p>Adds an option to generate a copy constructor to the generate menu.</p>
+
+        <p>The action will generate a copy constructor taking an instance of the same class and copying over every field. If there is a copy constructor available in the superclass it will be called as well.</p>
     ]]></description>
+
+    <depends>com.intellij.modules.java</depends>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
