@@ -49,7 +49,7 @@ public class CopyPropertiesMethodUtils {
             if (targetField == null) {
                 continue;
             }
-            if (!sourceField.getType().isAssignableFrom(targetField.getType())) {
+            if (!targetField.getType().isAssignableFrom(sourceField.getType())) {
                 continue;
             }
             copyFieldList.add(fieldName);

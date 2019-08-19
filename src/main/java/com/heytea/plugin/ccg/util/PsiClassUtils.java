@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class PsiClassUtils {
 
     public static boolean isAssignFrom(@NotNull PsiClass source, @NotNull PsiClass target, @NotNull PsiElementFactory factory) {
-        return factory.createType(source).isAssignableFrom(factory.createType(target));
+        return factory.createType(target).isAssignableFrom(factory.createType(source));
     }
 
 }
