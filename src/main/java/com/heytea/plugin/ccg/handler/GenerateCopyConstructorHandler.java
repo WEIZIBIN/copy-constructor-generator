@@ -1,6 +1,6 @@
 package com.heytea.plugin.ccg.handler;
 
-import com.heytea.plugin.ccg.util.ConstructorUtil;
+import com.heytea.plugin.ccg.util.ConstructorUtils;
 import com.intellij.codeInsight.generation.ClassMember;
 import com.intellij.codeInsight.generation.GenerateMembersHandlerBase;
 import com.intellij.codeInsight.generation.GenerationInfo;
@@ -37,7 +37,7 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
 
     @Override
     protected ClassMember[] getAllOriginalMembers(PsiClass aClass) {
-        return this.toMembers(ConstructorUtil.getAllCopyableFields(aClass));
+        return this.toMembers(ConstructorUtils.getAllCopyableFields(aClass));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
         String parameterName = "other";
         StringBuilder code = new StringBuilder();
         code.append(String.format("public %s(%s %s) {", psiClass.getName(), psiClass.getName(), parameterName));
-        boolean superclassHasCopyConstructor = ConstructorUtil.hasCopyConstructor(psiClass.getSuperClass());
+        boolean superclassHasCopyConstructor = ConstructorUtils.hasCopyConstructor(psiClass.getSuperClass());
         if (superclassHasCopyConstructor) {
             code.append(String.format("super(%s);", parameterName));
         }

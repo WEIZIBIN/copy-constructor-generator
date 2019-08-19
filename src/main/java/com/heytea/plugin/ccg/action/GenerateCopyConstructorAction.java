@@ -1,7 +1,7 @@
 package com.heytea.plugin.ccg.action;
 
 import com.heytea.plugin.ccg.handler.GenerateCopyConstructorHandler;
-import com.heytea.plugin.ccg.util.ConstructorUtil;
+import com.heytea.plugin.ccg.util.ConstructorUtils;
 import com.intellij.codeInsight.generation.actions.BaseGenerateAction;
 import com.intellij.psi.PsiAnonymousClass;
 import com.intellij.psi.PsiClass;
@@ -18,6 +18,6 @@ public class GenerateCopyConstructorAction extends BaseGenerateAction {
     @Override
     protected boolean isValidForClass(PsiClass targetClass) {
         return super.isValidForClass(targetClass) && !(targetClass instanceof PsiAnonymousClass)
-            && !ConstructorUtil.hasCopyConstructor(targetClass);
+            && !ConstructorUtils.hasCopyConstructor(targetClass);
     }
 }

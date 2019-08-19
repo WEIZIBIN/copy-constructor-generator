@@ -19,8 +19,8 @@ import java.util.List;
  * @author weizibin
  * @since 2019-08-07 14:05
  */
-public class ConstructorUtil {
-    private ConstructorUtil() {}
+public class ConstructorUtils {
+    private ConstructorUtils() {}
 
     public static boolean isCopyConstructor(@NotNull PsiMethod method) {
         PsiClass containingClass = method.getContainingClass();
@@ -75,6 +75,7 @@ public class ConstructorUtil {
         return null;
     }
 
+    @NotNull
     public static List<PsiField> getAllCopyableFields(PsiClass psiClass) {
         List<PsiField> copyableFields = new ArrayList<>();
         PsiField[] fields = psiClass.getFields();
