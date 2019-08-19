@@ -74,7 +74,7 @@ public class CopyPropertiesMethodUtils {
             }
             PsiParameter param = method.getParameterList().getParameters()[0];
             PsiClass paramClass = PsiTypesUtil.getPsiClass(param.getType());
-            if (PsiClassUtils.isAssignFrom(sourceClass, paramClass, elementFactory)) {
+            if (!PsiClassUtils.isAssignFrom(sourceClass, paramClass, elementFactory)) {
                 continue;
             }
             return true;
