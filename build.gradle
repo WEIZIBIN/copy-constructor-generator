@@ -23,11 +23,17 @@ intellij {
     localPath '/Applications/IntelliJ IDEA.app'
 }
 
+publishPlugin {
+    token intellijPublishToken
+    channels intellijPublishChannels
+}
+
 patchPluginXml {
     sinceBuild '172'
     untilBuild ''
     changeNotes """
       <ul>
+        <li>v1.1.0 add BeanUtilsCopyProperties inspection and quick fix with copy-properties-method</li>
         <li>v1.0.0 add Generator Copy Constructor action</li>
       </ul>"""
 }
