@@ -29,13 +29,13 @@ public class CopyPropertiesMethodUtils {
     public static final String METHOD_NAME = "copyPropertiesFrom";
 
     public static void generateCopyMethod(PsiClass sourceClass, PsiClass targetClass, Project project) {
-        PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
-        if (alreadyExistCopyMethod(sourceClass, targetClass, factory)) {
+        if (alreadyExistCopyMethod(sourceClass, targetClass)) {
             return;
         }
+        PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
 
-        List<PsiField> sourceFieldList = ConstructorUtils.getAllCopyableFields(sourceClass);
-        List<PsiField> targetFieldList = ConstructorUtils.getAllCopyableFields(targetClass);
+        List<PsiField> sourceFieldList = ConstructorUtils.getCopyableFields(sourceClass, true);
+        List<PsiField> targetFieldList = ConstructorUtils.getCopyableFields(targetClass, true);
 
         Map<String, PsiField> targetFieldNameMap = targetFieldList.stream()
                 .collect(Collectors.toMap(PsiField::getName, Function.identity()));
@@ -63,7 +63,7 @@ public class CopyPropertiesMethodUtils {
         JavaCodeStyleManager.getInstance(project).shortenClassReferences(targetClass);
     }
 
-    private static boolean alreadyExistCopyMethod(PsiClass sourceClass, PsiClass targetClass, PsiElementFactory elementFactory) {
+    private static boolean alreadyExistCopyMethod(PsiClass sourceClass, PsiClass targetClass) {
         PsiMethod[] allMethods = targetClass.getAllMethods();
         for (PsiMethod method : allMethods) {
             if (!Objects.equals(method.getName(), METHOD_NAME)) {
@@ -74,7 +74,7 @@ public class CopyPropertiesMethodUtils {
             }
             PsiParameter param = method.getParameterList().getParameters()[0];
             PsiClass paramClass = PsiTypesUtil.getPsiClass(param.getType());
-            if (!PsiClassUtils.isAssignFrom(sourceClass, paramClass, elementFactory)) {
+            if (!Objects.equals(paramClass.getQualifiedName(), sourceClass.getQualifiedName())) {
                 continue;
             }
             return true;

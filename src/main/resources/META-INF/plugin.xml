@@ -11,49 +11,17 @@
 
     <depends>com.intellij.modules.java</depends>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
-    <depends>com.intellij.modules.lang</depends>
-    -->
-
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-        <!--  Extend the IntelliJ Platform local inspection type, and connect it to the implementation class
-              in this plugin.
-              <localInspection> type element is applied within the scope of a file under edit.
-                  It is preferred over <inspectionToolProvider>
-                  @see intellij.platform.resources.LangExtensionPoints
-                  @see com.intellij.codeInspection.InspectionProfileEntry
-              Attributes:
-                language= Language ID
-                shortName= Not specified, will be computed by the underlying implementation classes.
-                displayName= The string to be shown in the Preferences | Editor | Inspections panel
-                    The displayName gets registered to identify this inspection.
-                    Can be localized using key= and bundle= attributes instead.
-                groupPath= Defines the outermost grouping for this inspection in
-                    the Preferences | Editor | Inspections panel. Not localized.
-                groupBundle= Name of *.bundle file to translate groupKey.
-                    In this case reuse an IntelliJ Platform bundle file from intellij.platform.resources.en
-                groupKey= Key to use for translation subgroup name using groupBundle file.
-                    In this case reuse the IntelliJ Platform subcategory "Probable bugs"
-                enabledByDefault= Inspection state when Inspections panel is created.
-                level= The default level of error found by this inspection, e.g. INFO, ERROR, etc.
-                    @see com.intellij.codeHighlighting.HighlightDisplayLevel
-                inplementationClass= FQN of inspection implementation
-               -->
         <localInspection language="JAVA"
-                         displayName="SDK: '==' or '!=' used instead of 'equals()'"
-                         groupPath="Copy-Constructor"
-                         groupBundle="messages.InspectionsBundle"
-                         groupKey="group.names.probable.bugs"
+                         displayName="Using beanUtils.copyProperties in code"
+                         groupPath="Copy Constructor Generator"
+                         groupName="Probable bugs"
                          enabledByDefault="true"
-                         level="WARNING"
+                         level="WEAK WARNING"
                          implementationClass="com.heytea.plugin.ccg.inspection.BeanUtilsCopyPropertiesInspection"/>
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
         <action id="CopyConstructor.GenerateConstructorAction" class="com.heytea.plugin.ccg.action.GenerateCopyConstructorAction" text="Copy Constructor"
                 description="The action generate bean properties copy constructor.">
             <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup1"/>

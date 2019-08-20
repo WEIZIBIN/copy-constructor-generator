@@ -76,9 +76,9 @@ public class ConstructorUtils {
     }
 
     @NotNull
-    public static List<PsiField> getAllCopyableFields(PsiClass psiClass) {
+    public static List<PsiField> getCopyableFields(PsiClass psiClass, boolean includeSuperClassField) {
         List<PsiField> copyableFields = new ArrayList<>();
-        PsiField[] fields = psiClass.getFields();
+        PsiField[] fields = includeSuperClassField ? psiClass.getAllFields() : psiClass.getFields();
 
         for (PsiField field : fields) {
             if (isCopyableField(field)) {

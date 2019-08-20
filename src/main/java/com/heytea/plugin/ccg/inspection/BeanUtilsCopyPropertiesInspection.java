@@ -34,7 +34,7 @@ public class BeanUtilsCopyPropertiesInspection extends AbstractBaseJavaLocalInsp
     private final QuickFix quickFix = new QuickFix();
 
     public static final String QUICK_FIX_NAME =
-            "Generate copy-method instead of using BeanUtils.copyProperties";
+            "Use copy-properties-method instead of using BeanUtils.copyProperties";
 
     @NonNls
     public static final String CHECKED_METHOD = "org.springframework.beans.BeanUtils.copyProperties";
@@ -67,7 +67,7 @@ public class BeanUtilsCopyPropertiesInspection extends AbstractBaseJavaLocalInsp
                     return false;
                 }
 
-                // same class copy not warming
+                // assignable class copy not warming
                 PsiType sourceArgumentType = argumentList.getExpressionTypes()[0];
                 PsiType targetArgumentType = argumentList.getExpressionTypes()[1];
                 if (sourceArgumentType.isAssignableFrom(targetArgumentType)

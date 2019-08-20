@@ -37,7 +37,7 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
 
     @Override
     protected ClassMember[] getAllOriginalMembers(PsiClass aClass) {
-        return this.toMembers(ConstructorUtils.getAllCopyableFields(aClass));
+        return this.toMembers(ConstructorUtils.getCopyableFields(aClass, false));
     }
 
     @Override
