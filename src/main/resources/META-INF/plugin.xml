@@ -13,7 +13,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <localInspection language="JAVA"
-                         displayName="Using beanUtils.copyProperties in code"
+                         displayName="Using BeanUtils#copyProperties(source, target) in code"
                          groupPath="Copy Constructor Generator"
                          groupName="Probable bugs"
                          enabledByDefault="true"

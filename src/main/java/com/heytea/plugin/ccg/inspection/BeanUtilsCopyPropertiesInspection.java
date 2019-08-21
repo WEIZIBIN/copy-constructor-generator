@@ -34,7 +34,7 @@ public class BeanUtilsCopyPropertiesInspection extends AbstractBaseJavaLocalInsp
     private final QuickFix quickFix = new QuickFix();
 
     public static final String QUICK_FIX_NAME =
-            "Use copy-properties-method instead of using BeanUtils.copyProperties";
+            "Use copy-properties-method instead";
 
     @NonNls
     public static final String CHECKED_METHOD = "org.springframework.beans.BeanUtils.copyProperties";
@@ -46,7 +46,7 @@ public class BeanUtilsCopyPropertiesInspection extends AbstractBaseJavaLocalInsp
 
             @NonNls
             private final String DESCRIPTION =
-                    "BeanUtils copy properties is danger";
+                    "BeanUtils#copyProperties(source, target) is danger";
 
             @Override
             public void visitMethodCallExpression(PsiMethodCallExpression expression) {
