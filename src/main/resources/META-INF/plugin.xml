@@ -22,9 +22,15 @@
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
-        <action id="CopyConstructor.GenerateConstructorAction" class="com.heytea.plugin.ccg.action.GenerateCopyConstructorAction" text="Copy Constructor"
+        <action id="CopyConstructor.GenerateAction" class="com.heytea.plugin.ccg.action.GenerateCopyConstructorAction" text="Copy Constructor"
                 description="The action generate bean properties copy constructor.">
+            <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup1"/>
+        </action>
+    </actions>
+
+    <actions>
+        <action id="ConverterMethod.GenerateAction" class="com.heytea.plugin.ccg.action.GenerateConvertMethodAction" text="Convert Method"
+                description="The action generate convert method with copying fields.">
             <add-to-group group-id="GenerateGroup" anchor="after" relative-to-action="JavaGenerateGroup1"/>
         </action>
     </actions>

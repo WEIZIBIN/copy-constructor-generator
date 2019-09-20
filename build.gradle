@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.heytea.plugin'
-version '1.0.0'
+version '1.1.0'
 
 sourceCompatibility = 1.8
 
@@ -19,8 +19,7 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     plugins 'java'
-    version 'IU-2019.2'
-    localPath '/Applications/IntelliJ IDEA.app'
+    version 'IC-2019.2'
 }
 
 publishPlugin {
@@ -33,7 +32,13 @@ patchPluginXml {
     untilBuild ''
     changeNotes """
       <ul>
-        <li>v1.1.0 add BeanUtilsCopyProperties inspection and quick fix with copy-properties-method</li>
-        <li>v1.0.0 add Generator Copy Constructor action</li>
+        1.1.0
+        <li>add 'Convert Method' action to generate menu</li>
+        <li>add choose source class dialog to 'Generator Copy Constructor' action</li>
+        <li>modify 'Generator Copy Constructor' action, code that calls the superclass constructor is no longer generated, user should choose superclass constructor myself</li>
+      </ul>
+      <ul>
+        1.0.0
+        <li>add 'Generator Copy Constructor' action to generate menu</li>
       </ul>"""
 }

@@ -27,20 +27,14 @@ import java.util.Optional;
 
 /**
  * @author weizibin
- * @since 2019-08-07 14:05
  */
-public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
+public class GenerateConvertMethodHandler extends GenerateMembersHandlerBase {
 
     private PsiClass target;
     private PsiClass source;
 
-    public GenerateCopyConstructorHandler() {
+    public GenerateConvertMethodHandler() {
         super(null);
-    }
-
-    @Override
-    protected String getNothingFoundMessage() {
-        return "Copy constructor already exists";
     }
 
     @Override
@@ -53,12 +47,12 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
     protected ClassMember[] chooseOriginalMembers(PsiClass aClass, Project project) {
         // select target class
         TreeClassChooser dialog = TreeClassChooserFactory.getInstance(project)
-                .createAllProjectScopeChooser("Choose Source Class");
+                .createAllProjectScopeChooser("Choose Target Class");
         dialog.showDialog();
-        source = dialog.getSelected();
-        target = aClass;
+        target = dialog.getSelected();
+        source = aClass;
 
-        if (source == null) {
+        if (target == null) {
             return null;
         }
 
@@ -69,14 +63,14 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
     @NotNull
     protected List<? extends GenerationInfo> generateMemberPrototypes(PsiClass aClass, ClassMember[] members)
         throws IncorrectOperationException {
-        PsiMethod copyConstructor = this.generateCopyConstructor(aClass, members);
-        return Collections.singletonList(new PsiGenerationInfo<>(copyConstructor));
+        PsiMethod method = this.generateConvertMethod(aClass, members);
+        return Collections.singletonList(new PsiGenerationInfo<>(method));
     }
 
     @Override
     protected GenerationInfo[] generateMemberPrototypes(PsiClass aClass, ClassMember originalMember)
         throws IncorrectOperationException {
-        return null;
+        throw new IncorrectOperationException();
     }
 
     @Override
@@ -90,25 +84,27 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
     protected void notifyOnSuccess(Editor editor, ClassMember[] members, List<? extends GenerationInfo> generatedMembers) {
         super.notifyOnSuccess(editor, members, generatedMembers);
         Optional.ofNullable(editor.getProject())
-                .ifPresent(project -> JavaCodeStyleManager.getInstance(project).shortenClassReferences(target));
+                .ifPresent(project -> JavaCodeStyleManager.getInstance(project).shortenClassReferences(source));
     }
 
-    private PsiMethod generateCopyConstructor(PsiClass psiClass, ClassMember[] copyableFields) {
-        String sourceClassName = source.getName();
-        String targetClassCapitalizeName = StringUtils.capitalize(target.getName());
-        String sourceClassQualifiedName = source.getQualifiedName();
+    private PsiMethod generateConvertMethod(PsiClass psiClass, ClassMember[] copyableFields) {
+        String targetClassName = target.getName();
+        String targetClassCapitalizeName = StringUtils.capitalize(targetClassName);
+        String targetClassQualifiedName = target.getQualifiedName();
 
-        String parameterName = StringUtils.uncapitalize(sourceClassName);
+        String parameterName = StringUtils.uncapitalize(targetClassName);
         StringBuilder code = new StringBuilder();
-        code.append(String.format("public %s(%s %s) {", targetClassCapitalizeName, sourceClassQualifiedName, parameterName));
 
+        code.append(String.format("public %s to%s() {", targetClassQualifiedName, targetClassCapitalizeName));
+        code.append(String.format("%s %s = new %s();", targetClassQualifiedName, parameterName, targetClassQualifiedName));
         for (ClassMember fieldMember : copyableFields) {
             PsiField field = ((PsiFieldMember)fieldMember).getElement();
             String name = field.getName();
-            code.append(String.format("this.%s = %s.get%s();", name, parameterName, StringUtils.capitalize(name)));
+            code.append(String.format("%s.set%s(this.%s);", parameterName, StringUtils.capitalize(name), name));
         }
-
+        code.append(String.format("return %s;", parameterName));
         code.append("}");
+
         PsiElementFactory elementFactory = JavaPsiFacade.getElementFactory(psiClass.getProject());
         return elementFactory.createMethodFromText(code.toString(), psiClass);
     }
