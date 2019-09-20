@@ -6,7 +6,11 @@
     <description><![CDATA[
         <p>Adds an option to generate a copy constructor to the generate menu.</p>
 
-        <p>The action will generate a copy constructor taking an instance of the same class and copying over every field. If there is a copy constructor available in the superclass it will be called as well.</p>
+        <p>The action will generate a copy constructor taking an instance of copying over every field from the user selected class.</p>
+
+        <p>Adds an option to generate a convert method to the generate menu.</p>
+
+        <p>The action will generate a convert method instantiate an instance of the user selected class, and copying every field to this instance.</p>
     ]]></description>
 
     <depends>com.intellij.modules.java</depends>
