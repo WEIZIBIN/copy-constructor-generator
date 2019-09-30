@@ -8,7 +8,6 @@ import com.intellij.codeInsight.generation.PsiFieldMember;
 import com.intellij.codeInsight.generation.PsiGenerationInfo;
 import com.intellij.ide.util.TreeClassChooser;
 import com.intellij.ide.util.TreeClassChooserFactory;
-import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
@@ -33,6 +32,7 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
 
     private PsiClass target;
     private PsiClass source;
+    private Project project;
 
     public GenerateCopyConstructorHandler() {
         super(null);
@@ -55,8 +55,9 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
         TreeClassChooser dialog = TreeClassChooserFactory.getInstance(project)
                 .createAllProjectScopeChooser("Choose Source Class");
         dialog.showDialog();
-        source = dialog.getSelected();
-        target = aClass;
+        this.source = dialog.getSelected();
+        this.target = aClass;
+        this.project = project;
 
         if (source == null) {
             return null;
@@ -82,15 +83,11 @@ public class GenerateCopyConstructorHandler extends GenerateMembersHandlerBase {
     @Override
     protected void cleanup() {
         super.cleanup();
+        Optional.ofNullable(project)
+                .ifPresent(project -> JavaCodeStyleManager.getInstance(project).shortenClassReferences(target));
+        project = null;
         target = null;
         source = null;
-    }
-
-    @Override
-    protected void notifyOnSuccess(Editor editor, ClassMember[] members, List<? extends GenerationInfo> generatedMembers) {
-        super.notifyOnSuccess(editor, members, generatedMembers);
-        Optional.ofNullable(editor.getProject())
-                .ifPresent(project -> JavaCodeStyleManager.getInstance(project).shortenClassReferences(target));
     }
 
     private PsiMethod generateCopyConstructor(PsiClass psiClass, ClassMember[] copyableFields) {

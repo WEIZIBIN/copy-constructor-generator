@@ -8,7 +8,6 @@ import com.intellij.codeInsight.generation.PsiFieldMember;
 import com.intellij.codeInsight.generation.PsiGenerationInfo;
 import com.intellij.ide.util.TreeClassChooser;
 import com.intellij.ide.util.TreeClassChooserFactory;
-import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
@@ -32,6 +31,7 @@ public class GenerateConvertMethodHandler extends GenerateMembersHandlerBase {
 
     private PsiClass target;
     private PsiClass source;
+    private Project project;
 
     public GenerateConvertMethodHandler() {
         super(null);
@@ -49,8 +49,9 @@ public class GenerateConvertMethodHandler extends GenerateMembersHandlerBase {
         TreeClassChooser dialog = TreeClassChooserFactory.getInstance(project)
                 .createAllProjectScopeChooser("Choose Target Class");
         dialog.showDialog();
-        target = dialog.getSelected();
-        source = aClass;
+        this.target = dialog.getSelected();
+        this.source = aClass;
+        this.project = project;
 
         if (target == null) {
             return null;
@@ -76,15 +77,11 @@ public class GenerateConvertMethodHandler extends GenerateMembersHandlerBase {
     @Override
     protected void cleanup() {
         super.cleanup();
+        Optional.ofNullable(project)
+                .ifPresent(project -> JavaCodeStyleManager.getInstance(project).shortenClassReferences(source));
+        project = null;
         target = null;
         source = null;
-    }
-
-    @Override
-    protected void notifyOnSuccess(Editor editor, ClassMember[] members, List<? extends GenerationInfo> generatedMembers) {
-        super.notifyOnSuccess(editor, members, generatedMembers);
-        Optional.ofNullable(editor.getProject())
-                .ifPresent(project -> JavaCodeStyleManager.getInstance(project).shortenClassReferences(source));
     }
 
     private PsiMethod generateConvertMethod(PsiClass psiClass, ClassMember[] copyableFields) {
